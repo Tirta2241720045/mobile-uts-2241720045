@@ -27,7 +27,7 @@ class _LatestUpdatesWidgetState extends State<LatestUpdatesWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header with 'Latest Updates'
+        // Header with 'Best Deals' and 'See All'
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
@@ -45,15 +45,14 @@ class _LatestUpdatesWidgetState extends State<LatestUpdatesWidget> {
         ),
         // Carousel with PageView
         SizedBox(
-          height: 250, // Height to match ImageCarouselWidget
+          height: 200, // Adjusted to fit image, description, and extra text
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (index) => setState(() => _carouselIndex = index),
             itemCount: updates.length,
             itemBuilder: (context, index) {
               return Container(
-                margin:
-                    EdgeInsets.symmetric(horizontal: 8), // Margin for spacing
+                margin: EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -76,8 +75,7 @@ class _LatestUpdatesWidgetState extends State<LatestUpdatesWidget> {
                           child: Image.asset(
                             'assets/promo/promo${index + 1}.png',
                             fit: BoxFit.cover,
-                            width: double
-                                .infinity, // Ensures the image fills the container
+                            width: double.infinity,
                           ),
                         ),
                       ),
@@ -99,20 +97,6 @@ class _LatestUpdatesWidgetState extends State<LatestUpdatesWidget> {
                         fontSize: 12,
                         color: Colors.grey,
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    // Button
-                    ElevatedButton(
-                      onPressed: () {
-                        // Action when button is clicked
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('Button clicked for: ${updates[index]}'),
-                          ),
-                        );
-                      },
-                      child: Text('Learn More'),
                     ),
                   ],
                 ),

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class ImageCarouselWidget extends StatefulWidget {
@@ -8,6 +9,35 @@ class ImageCarouselWidget extends StatefulWidget {
 class _ImageCarouselWidgetState extends State<ImageCarouselWidget> {
   final PageController _pageController = PageController(viewportFraction: 0.85);
   int _carouselIndex = 0;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoScroll();
+  }
+
+  void _startAutoScroll() {
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      if (_carouselIndex < 6) {
+        // 6 karena index mulai dari 0
+        _carouselIndex++;
+      } else {
+        _carouselIndex = 0; // Kembali ke awal setelah mencapai akhir
+      }
+      _pageController.animateToPage(
+        _carouselIndex,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Hentikan timer saat widget dihancurkan
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
