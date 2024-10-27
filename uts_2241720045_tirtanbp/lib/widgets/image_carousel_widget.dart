@@ -6,22 +6,25 @@ class ImageCarouselWidget extends StatefulWidget {
 }
 
 class _ImageCarouselWidgetState extends State<ImageCarouselWidget> {
-  final PageController _pageController = PageController(viewportFraction: 0.8);
+  final PageController _pageController = PageController(viewportFraction: 0.85);
   int _carouselIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment:
+          CrossAxisAlignment.start, // Aligns the column to the start
       children: [
         SizedBox(
-          height: 150,
+          height: 250, // Adjusted height to match LatestUpdatesWidget
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (index) => setState(() => _carouselIndex = index),
-            itemCount: 3, // Adjust based on the number of images
+            itemCount: 7, // Updated to 7 images
             itemBuilder: (context, index) {
               return Container(
-                margin: EdgeInsets.symmetric(horizontal: 8),
+                margin:
+                    EdgeInsets.symmetric(horizontal: 8), // Margin for spacing
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: index == 0 ? Colors.orange : Colors.white,
@@ -38,6 +41,8 @@ class _ImageCarouselWidgetState extends State<ImageCarouselWidget> {
                   child: Image.asset(
                     'assets/promo/promo${index + 1}.png',
                     fit: BoxFit.cover,
+                    width: double
+                        .infinity, // Ensures the image fills the container
                   ),
                 ),
               );
@@ -51,20 +56,27 @@ class _ImageCarouselWidgetState extends State<ImageCarouselWidget> {
   }
 
   Widget _buildPageIndicator() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(3, (index) {
-        return AnimatedContainer(
-          duration: Duration(milliseconds: 300),
-          margin: EdgeInsets.symmetric(horizontal: 4),
-          width: _carouselIndex == index ? 12 : 8,
-          height: 8,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: _carouselIndex == index ? Colors.red : Colors.grey,
-          ),
-        );
-      }),
+    return Align(
+      alignment: Alignment.centerLeft, // Align to the left
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16.0), // Add some left padding
+        child: Row(
+          mainAxisSize: MainAxisSize.min, // Use minimum size for the row
+          children: List.generate(7, (index) {
+            // Updated to 7 indicators
+            return AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              margin: EdgeInsets.symmetric(horizontal: 4),
+              width: _carouselIndex == index ? 12 : 8,
+              height: 8,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _carouselIndex == index ? Colors.red : Colors.grey,
+              ),
+            );
+          }),
+        ),
+      ),
     );
   }
 }

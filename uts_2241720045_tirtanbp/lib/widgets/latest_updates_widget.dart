@@ -45,15 +45,15 @@ class _LatestUpdatesWidgetState extends State<LatestUpdatesWidget> {
         ),
         // Carousel with PageView
         SizedBox(
-          height:
-              250, // Adjusted to fit image, description, extra text, and button
+          height: 250, // Height to match ImageCarouselWidget
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (index) => setState(() => _carouselIndex = index),
             itemCount: updates.length,
             itemBuilder: (context, index) {
               return Container(
-                margin: EdgeInsets.symmetric(horizontal: 8),
+                margin:
+                    EdgeInsets.symmetric(horizontal: 8), // Margin for spacing
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -76,7 +76,8 @@ class _LatestUpdatesWidgetState extends State<LatestUpdatesWidget> {
                           child: Image.asset(
                             'assets/promo/promo${index + 1}.png',
                             fit: BoxFit.cover,
-                            width: double.infinity,
+                            width: double
+                                .infinity, // Ensures the image fills the container
                           ),
                         ),
                       ),
@@ -104,7 +105,6 @@ class _LatestUpdatesWidgetState extends State<LatestUpdatesWidget> {
                     ElevatedButton(
                       onPressed: () {
                         // Action when button is clicked
-                        // You can navigate to another page or show a dialog
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content:
